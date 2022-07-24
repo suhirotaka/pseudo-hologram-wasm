@@ -13,7 +13,7 @@ static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 // Define constants
 // TODO: Dynamic setting of hologram size
 //       This needs to fix large memory allocation to stack
-const HOLOGRAM_SIZE: u32 = 511;
+const HOLOGRAM_SIZE: u32 = 512;
 const HOLOGRAM_FPS: u32 = 60;
 
 // Import JS APIs
