@@ -1,8 +1,9 @@
 [package]
 name = "pseudo-hologram-wasm"
 description = "A pseudo hologram generator in WASM"
-version = "0.1.1"
+version = "0.1.2"
 authors = ["suhirotaka"]
+homepage="https://github.com/suhirotaka/pseudo-hologram-wasm"
 edition = "2018"
 
 [lib]
