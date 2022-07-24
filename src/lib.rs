@@ -11,10 +11,10 @@ use web_sys::{console, CanvasRenderingContext2d, HtmlCanvasElement, HtmlVideoEle
 static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 
 // Define constants
+// TODO: Dynamic setting of hologram size
+//       This needs to fix large memory allocation to stack
 const HOLOGRAM_SIZE: u32 = 511;
 const HOLOGRAM_FPS: u32 = 60;
-const HOLOGRAM_CANVAS_ID: &str = "hologram";
-const ORIGNAL_VIDEO_ID: &str = "orig-video";
 
 // Import JS APIs
 #[wasm_bindgen]
@@ -40,9 +40,9 @@ pub struct PseudoHologram {}
 
 #[wasm_bindgen]
 impl PseudoHologram {
-    pub fn draw() -> IntervalHandle {
+    pub fn draw(hologram_canvas_id: &str, orignal_video_id: &str) -> IntervalHandle {
         utils::set_panic_hook();
-        Processor::start()
+        Processor::start(hologram_canvas_id, orignal_video_id)
     }
 }
 
@@ -54,17 +54,17 @@ struct Processor {
 }
 
 impl Processor {
-    fn start() -> IntervalHandle {
+    fn start(hologram_canvas_id: &str, orignal_video_id: &str) -> IntervalHandle {
         let document = web_sys::window().unwrap().document().unwrap();
 
         let canvas = document
-            .get_element_by_id(HOLOGRAM_CANVAS_ID)
+            .get_element_by_id(hologram_canvas_id)
             .unwrap()
             .dyn_into::<HtmlCanvasElement>()
             .unwrap();
 
         let video = document
-            .get_element_by_id(ORIGNAL_VIDEO_ID)
+            .get_element_by_id(orignal_video_id)
             .unwrap()
             .dyn_into::<HtmlVideoElement>()
             .unwrap();
